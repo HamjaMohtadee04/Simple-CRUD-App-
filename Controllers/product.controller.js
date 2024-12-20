@@ -44,6 +44,7 @@ const updateProduct = async(req,res)=>{
         res.status(500).json({ message: error.message })
     }
 }
+
 const deleteProduct = async(req,res)=>{
     try {
         const { id } = req.params
