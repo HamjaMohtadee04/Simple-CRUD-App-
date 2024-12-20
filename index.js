@@ -19,7 +19,7 @@ app.get('/api/products',async(req,res)=>{
     }
 })
 
-app.get('/api/products/:id',async(req,res)=>{
+app.get('/api/product/:id',async(req,res)=>{
     try{
             const {id} = req.params;
             const product = await Product.findById(id);
@@ -38,6 +38,25 @@ app.post('/api/products',async(req,res)=>{
   res.status(500).json({message:error.message})
   }
 })
+
+//update a product
+app.put('/api/product/:id',async(req,res)=>{
+
+try{
+const {id} =req.params
+const product = await Product.findByIdAndUpdate(id,req.body)
+if(!product){
+    return res.status(404).json({message:'product not found'})
+}
+const updateProduct = await Product.findById(id)
+res.status(200).json(updateProduct)
+}catch(error){
+    res.status(500).json({message:error.message})
+}
+
+
+})
+
 
 
 mongoose.connect("mongodb+srv://hamzamohtadi225:12345@cluster0.wayv5.mongodb.net/Node-API?retryWrites=true&w=majority&appName=Cluster0")
